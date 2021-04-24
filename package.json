@@ -3,6 +3,8 @@
 	"displayName": "headerView",
 	"description": "A lightweight table viewer for Visual Studio Code",
 	"version": "0.0.1",
+	"publisher": "diximixi",
+	"author": {"name": "diximixi"},
 	"engines": {
 		"vscode": "^1.55.0"
 	},
@@ -10,16 +12,24 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:headerview.helloWorld"
+		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "headerview.helloWorld",
-				"title": "Hello World"
+				"command": "headerview.align",
+				"title": "Header View: Auto align columns"
+			},
+			{
+				"command": "headerview.toggle",
+				"title": "Header View: Toggle header"
+			},
+			{
+				"command": "headerview.lines",
+				"title": "Header View: Set number of header lines"
 			}
-		]
+			]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
