@@ -4,7 +4,7 @@ export class HeaderView
 {
     numberHeaderLines: number = 0;
 
-    toggle(): void {}
-    align(): void {}
-    lines(): void {}
+    dotoggle(): void {}
+    doalign(): void {}
+    setlines(): void {}
 }

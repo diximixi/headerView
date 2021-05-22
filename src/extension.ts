@@ -5,24 +5,38 @@ let headerViewContainer: Record<any, HeaderView.HeaderView> = {};
 
 export function activate(context: vscode.ExtensionContext) {
 
-	vscode.workspace.textDocuments.forEach(element => {
-		headerViewContainer[element.uri.toString()] = new HeaderView.HeaderView();
-	});
-
-	let disposable = vscode.commands.registerCommand('headerview.align', () => {
-		
+	installForActiveDocument();
+	
+	let disposable = vscode.commands.registerCommand('headerview.doalign', () => {
+		installForActiveDocument();
 	});
 	context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('headerview.toggle', () => {
+	disposable = vscode.commands.registerCommand('headerview.dotoggle', () => {
 		vscode.window.showInformationMessage(Object.keys(headerViewContainer).length.toString());
 	});
 	context.subscriptions.push(disposable);
 
-	disposable = vscode.commands.registerCommand('headerview.lines', () => {
-		vscode.window.showInputBox()
+	disposable = vscode.commands.registerCommand('headerview.setlines', () => {
+		vscode.window.showInputBox();
 	});
 	context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}
+
+async function  installForActiveDocument() {
+	if (vscode.window.activeTextEditor !== undefined)
+	{
+		let document = vscode.window.activeTextEditor.document;
+		if (document.languageId !== "log")
+		{
+			let key = document.uri.toString();
+			if (!headerViewContainer[key])
+			{
+				headerViewContainer[key] = new HeaderView.HeaderView();
+				vscode.window.showInformationMessage("Added HeaderView-Object to " + key);
+			}
+		}
+	}
+}
