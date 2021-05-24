@@ -12,22 +12,21 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onStartupFinished:headerView.activate",
-		"window.onDidChangeActiveTestEditor:headerView.installActiveDosument"
+		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "headerview.doalign",
+				"command": "headerView.doalign",
 				"title": "Header View: Auto align columns"
 			},
 			{
-				"command": "headerview.dotoggle",
+				"command": "headerView.dotoggle",
 				"title": "Header View: Toggle header"
 			},
 			{
-				"command": "headerview.setlines",
+				"command": "headerView.setlines",
 				"title": "Header View: Set number of header lines"
 			}
 			]
