@@ -5,33 +5,46 @@ let headerViewContainer: Record<any, HeaderView.HeaderView> = {};
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('headerView.doalign', () => {
-	});
-	context.subscriptions.push(disposable);
+	context.subscriptions.push
+	(
+		vscode.commands.registerCommand('headerView.doalign', () => {
+			}
+		)
+	);
 
-	disposable = vscode.commands.registerCommand('headerView.dotoggle', () => {
-		vscode.window.showInformationMessage(Object.keys(headerViewContainer).length.toString());
-	});
-	context.subscriptions.push(disposable);
+	context.subscriptions.push
+	( 
+		vscode.commands.registerCommand('headerView.dotoggle', () => {
+				vscode.window.showInformationMessage(Object.keys(headerViewContainer).length.toString());
+			}
+		)
+	);
 
-	disposable = vscode.commands.registerCommand('headerView.setlines', () => {
-		vscode.window.showInputBox();
-	});
-	context.subscriptions.push(disposable);
+	context.subscriptions.push
+	(
+		vscode.commands.registerCommand('headerView.setlines', () => {
+				vscode.window.showInputBox();
+			}
+		)
+	);
 
-	disposable = vscode.workspace.onDidCloseTextDocument( (document: vscode.TextDocument) => {
-		removeForActiveDocument(document);
-		vscode.window.showWarningMessage(document.uri.toString());
-	});
-	context.subscriptions.push(disposable);
+	context.subscriptions.push
+	(
+		vscode.workspace.onDidCloseTextDocument( (document: vscode.TextDocument) => {
+				removeForActiveDocument(document);
+				vscode.window.showWarningMessage(document.uri.toString());
+			}
+		)
+	);
 
-	disposable = vscode.window.onDidChangeActiveTextEditor( (editor: vscode.TextEditor | undefined) => {
-		if (editor !== undefined)
-		{
-			installForActiveDocument( editor.document );
-		}
-	});
-	context.subscriptions.push(disposable);
+	context.subscriptions.push( vscode.window.onDidChangeActiveTextEditor( (editor: vscode.TextEditor | undefined) => {
+				if (editor !== undefined)
+				{
+					installForActiveDocument( editor.document );
+				}
+			}
+		)
+	);
 
 	if (vscode.window.activeTextEditor !== undefined)
 	{
