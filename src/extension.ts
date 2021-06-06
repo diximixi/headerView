@@ -7,73 +7,63 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push
 	(
-		vscode.commands.registerCommand('headerView.doalign', () => {
-			}
-		)
+		vscode.commands.registerCommand('headerView.doalign', () => 
+		{} )
 	);
 
 	context.subscriptions.push
 	( 
-		vscode.commands.registerCommand('headerView.dotoggle', () => {
-				vscode.window.showInformationMessage(Object.keys(headerViewContainer).length.toString());
-			}
-		)
+		vscode.commands.registerCommand('headerView.dotoggle', () => 
+		{
+			vscode.window.showInformationMessage(Object.keys(headerViewContainer).length.toString());
+		} )
 	);
 
 	context.subscriptions.push
 	(
-		vscode.commands.registerCommand('headerView.setlines', () => {
-				vscode.window.showInputBox();
-			}
-		)
+		vscode.commands.registerCommand('headerView.setlines', () => 
+		{
+			vscode.window.showInputBox();
+		} )
 	);
 
 	context.subscriptions.push
 	(
-		vscode.workspace.onDidCloseTextDocument( (document: vscode.TextDocument) => {
-				removeForActiveDocument(document);
-				vscode.window.showWarningMessage(document.uri.toString());
-			}
-		)
+		vscode.workspace.onDidCloseTextDocument( (document: vscode.TextDocument) => 
+		{
+			removeForActiveDocument(document);
+		} )
 	);
 
-	context.subscriptions.push( vscode.window.onDidChangeActiveTextEditor( (editor: vscode.TextEditor | undefined) => {
-				if (editor !== undefined)
-				{
-					installForActiveDocument( editor.document );
-				}
-			}
-		)
+	context.subscriptions.push( vscode.window.onDidChangeActiveTextEditor( (editor: vscode.TextEditor | undefined) => 
+		{
+			installForActiveDocument( editor?.document );
+		} )
 	);
 
-	if (vscode.window.activeTextEditor !== undefined)
-	{
-		installForActiveDocument(vscode.window.activeTextEditor.document);
-	}
+	installForActiveDocument(vscode.window.activeTextEditor?.document);
 }
 
 export function deactivate() {}
 
-async function  installForActiveDocument( document: vscode.TextDocument ) {
-	if (document.languageId !== "log")
+async function  installForActiveDocument( document: vscode.TextDocument | undefined) {
+	if (document?.languageId !== "log")
 	{
-		let key = document.uri.toString();
-		if (!headerViewContainer[key])
+		let key = document?.uri.toString();
+		if (key && !headerViewContainer[key])
 		{
 			headerViewContainer[key] = new HeaderView.HeaderView();
-			vscode.window.showInformationMessage("Added HeaderView-Object to " + key);
+			vscode.window.showInformationMessage("Added HeaderView-Object for " + key);
 		}
 	}
 }
 
-async function removeForActiveDocument( document: vscode.TextDocument ) {
-	if (vscode.window.activeTextEditor !== undefined)
+async function removeForActiveDocument( document: vscode.TextDocument | undefined) {
+	let key = document?.uri.toString();
+	if (key && headerViewContainer[key])
 	{
-		let key = document.uri.toString();
-		if (headerViewContainer[key])
-		{
-			delete headerViewContainer[key];
-		}
+		delete headerViewContainer[key];
+		vscode.window.showInformationMessage("Removed HeaderView-Object for " + key);
 	}
 }
 
